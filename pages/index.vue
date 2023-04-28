@@ -6,10 +6,20 @@
 
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script lang="tsx">
+import { defineComponent, wrapProperty } from '@nuxtjs/composition-api';
+import { LIST_SESSION } from '@/api/index'
 
-export default Vue.extend({
-  name: 'IndexPage'
+export default defineComponent({
+  name: 'IndexPage',
+  setup() {
+    
+    const $axios = wrapProperty('$axios', false)()
+    $axios.$get(LIST_SESSION).then(res => {
+      console.log(res)
+    })
+
+    
+  }
 })
 </script>

@@ -1,9 +1,20 @@
+const axios = {
+
+  proxy: true,
+}
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+
+  proxy: {
+    '/api': 'http://172.245.5.165:5000'
+  },
+
+  axios,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -45,6 +56,10 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    ['@nuxtjs/dotenv', {path: './'}],
+    '@nuxtjs/axios',
+
+    '@nuxtjs/style-resources'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
