@@ -1,19 +1,42 @@
 <template>
-   <svg :style="iconStyle" class="ace-icon" aria-hidden="true">
+  <svg
+    :style="iconStyle"
+    class="ace-icon"
+    aria-hidden="true"
+  >
     <use :xlink:href="iconName" />
   </svg>
 </template>
 
 <script lang="tsx">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: "SvgIcon",
-  setup() {
-    
+  props: {
+    type: {
+      type: String as PropType<string>,
+      default: '',
+    },
+    size: {
+      type: [Number, String] as PropType<number | string>,
+      default: 16
+    }
+  },
+  setup(props) {
+    const iconName = computed(() => {
+      return `#icon-${props.type}`
+    })
+
+    const iconStyle = computed(() => {
+      return {
+        'font-size': `${props.size}px`
+      }
+    })
 
     return {
-      
+      iconName,
+      iconStyle,
     }
   },
 })
