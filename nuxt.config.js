@@ -11,7 +11,9 @@ export default {
   target: 'static',
 
   proxy: {
-    '/api': 'http://172.245.5.165:5000'
+    '/api': 'http://172.245.5.165:5000',
+    '/socket.io':  'http://172.245.5.165:5000',
+    '/socket*':  'http://172.245.5.165:5000',
   },
 
   axios,
@@ -39,7 +41,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/index'
+    '@/plugins/element'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -64,5 +66,5 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
 }

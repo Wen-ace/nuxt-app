@@ -7,11 +7,16 @@ export const state = () => ({
   sessionList: [],
 })
 
-export const actions: ActionTree<StaticRange, any> = {
+export const mutations: MutationTree<State> = {
+  setCurrentSession(state, payload) {
+    state.currentSession = payload
+  },
 
+  setSessionList(state, payload) {
+    state.sessionList  = payload
+  }
 }
 
+export const actions: ActionTree<StaticRange, any> = {
 
-export const mutations: MutationTree<State> = {
-  
 }

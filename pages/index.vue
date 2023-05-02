@@ -1,24 +1,33 @@
 <template>
-  <div>
-      <Tutorial/>
-      <SvgIcon />
+  <div class="flex h-screen">
+      <div class=" w-[280px] h-full overflow-auto">
+        ACE GPT
+        <SessionList>
+
+        </SessionList>
+      </div>
+      <div class="h-full">
+        <ChatContent ></ChatContent>
+      </div>
   </div>
 
 </template>
 
-<script lang="tsx">
+<script lang="ts">
 import { defineComponent, wrapProperty } from '@nuxtjs/composition-api';
+import SessionList from '@/modules/session/session-list.vue';
+import ChatContent from '@/modules/chat-content.vue';
+// 
+// import * as h from '@/modules/session/session-item.vue'
 import { LIST_SESSION } from '@/api/index'
 
 export default defineComponent({
   name: 'IndexPage',
+  components: {SessionList, ChatContent},
   setup() {
     
     const $axios = wrapProperty('$axios', false)()
-    $axios.$get(LIST_SESSION).then(res => {
-      console.log(res)
-    })
-
+   
     
   }
 })
