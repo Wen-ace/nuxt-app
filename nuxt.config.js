@@ -3,6 +3,9 @@ const axios = {
   proxy: true,
 }
 
+
+const api_server = 'http://172.245.5.165:5110'
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -11,9 +14,9 @@ export default {
   target: 'static',
 
   proxy: {
-    '/api': 'http://172.245.5.165:5000',
-    '/socket.io':  'http://172.245.5.165:5000',
-    '/socket*':  'http://172.245.5.165:5000',
+    '/api': api_server,
+    '/socket.io':  api_server,
+    '/socket*':  api_server,
   },
 
   axios,

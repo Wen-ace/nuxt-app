@@ -51,12 +51,12 @@ export default defineComponent({
 
             return $axios.$delete(DELETE_SESSION, {
                 params: {
-                    session_id: currentSession.value.id
+                    session_id: props.data.id
                 }
             }).then((res) => {
                 const list = res.data.list.reverse()
-                store.commit('setSesstionList', list)
-                emit('delete', currentSession.value)
+                store.commit('setSessionList', list)
+                emit('delete', props.data)
             })
         }
 

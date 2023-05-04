@@ -50,7 +50,10 @@ export default defineComponent({
             return store.state.sessionList
         })
         const deleteCallback = () => {
-            clickFirstItem()
+            nextTick(() => {
+                clickFirstItem() 
+            })
+           
         }
 
         return {

@@ -1,9 +1,10 @@
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { Socket, io } from "socket.io-client"
+// import { Socket } from 'socket.io'
 
-const base_url = 'wss://172.245.5.165:5000'
-// const io_url = 'http://172.245.5.165:5000'
-const io_url = undefined
+const base_url = 'wss://172.245.5.165:5110'
+const io_url = 'http://172.245.5.165:5110'
+// const io_url = undefined
 
 let ws: WebSocket | null = null
 
@@ -17,8 +18,12 @@ const createWS = () => {
 }
 const createIO = () => {
     if (!socketIO) {
-        socketIO = io(io_url)
+        socketIO = io({
+            autoConnect: true,
+            host: base_url
+        })
     }
+
     return socketIO
 }
 export default {

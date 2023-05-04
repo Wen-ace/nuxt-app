@@ -57,16 +57,22 @@ export default defineComponent({
 
         const input = ref('')
 
-        const io = socket.createIO()
-        console.log(io)
+        // const io = socket.createIO()
+        // console.log(io)
 
-        io.on('message', res => {
-            console.log('io message', res)
-        })
+        // //  io.connect()
 
-        io.on('connection', () => {
-            console.log('create .. connect')
-        })
+        // io.on('message', res => {
+        //     console.log('io message', res)
+        // })
+
+        // io.on('connect', () => {
+        //     console.log('create .. connect')
+        // })
+
+        // io.on('connection_error', error => {
+        //     console.log('connect error => ',error)
+        // })
 
         const sendHandler = () => {
             const data = JSON.stringify({
@@ -74,7 +80,9 @@ export default defineComponent({
                 message: input.value
             })
 
-            io.send(data)
+            console.log('data :>> ', data)
+            // io.emit('message', data)
+            // io.send(data)
 
             //
             // nextTick(() => {
