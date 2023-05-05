@@ -6,7 +6,15 @@
 
         <p></p>
         <div v-for="item in chatList" :key="item.id">
-            {{ `${item.nickname}: ${item.message}` }}
+            <div v-if="item.direction === 0" class="text-right">
+                <div>{{ item.nickname }}</div>
+                <div>{{ item.message }}</div>
+            </div>
+            <div v-else>
+                <div>{{ item.nickname }}</div>
+                <div>{{ item.message }}</div>
+            </div>
+         
         </div>
 
         <div>
@@ -22,6 +30,10 @@ import { computed, defineComponent, nextTick, ref, useStore, watch, wrapProperty
 import { HISTORY_SESSION } from '~/api';
 import { IChat, Session } from '~/type';
 import socket from '@/tool/socket'
+
+const userInfo = {
+    nickName: 'User'
+}
 
 export default defineComponent({
     name: 'chat-content',
@@ -43,12 +55,12 @@ export default defineComponent({
                     session_id: data.id
                 }
             }).then(res => {
-                const list = (res.data.list as IChat[]).sort((a, b) => a.direction - b.direction)
-                chatList.value = res.data.list
+                const list = (res.data.list as IChat[]).sort((a, b) => a.create_time - b.create_time)
+                chatList.value = list
             })
         }
+
         watch(() => currentSession.value, (data) => {
-            console.log('chat  chat chat ')
             data && data.id && getSessionDetail(data)
         }, {
             deep: true,
@@ -57,22 +69,27 @@ export default defineComponent({
 
         const input = ref('')
 
-        // const io = socket.createIO()
-        // console.log(io)
+        const io = socket.createIO()
 
-        // //  io.connect()
+        io.on('message', res => {
 
-        // io.on('message', res => {
-        //     console.log('io message', res)
-        // })
+            chatList.value.push({
+                message: res || '',
+                create_time: Date.now(),
+                nickname: 'ChatBot',
+                id: Date.now() + '',
+                direction: 1,
+                session_id: currentSession.value.id,
+            })
+        })
 
-        // io.on('connect', () => {
-        //     console.log('create .. connect')
-        // })
+        io.on('connect', () => {
+            console.log('chat connnected')
+        })
 
-        // io.on('connection_error', error => {
-        //     console.log('connect error => ',error)
-        // })
+        io.on('connection_error', error => {
+            console.log('connect error => ',error)
+        })
 
         const sendHandler = () => {
             const data = JSON.stringify({
@@ -80,14 +97,20 @@ export default defineComponent({
                 message: input.value
             })
 
-            console.log('data :>> ', data)
-            // io.emit('message', data)
-            // io.send(data)
+            io.send(data)
 
+            chatList.value.push({
+                create_time: Date.now(),
+                nickname: userInfo.nickName,
+                id: Date.now() + '',
+                direction: 1,
+                message: input.value,
+                session_id: currentSession.value.id,
+            })
             //
-            // nextTick(() => {
-            //     input.value = ''
-            // })
+            nextTick(() => {
+                input.value = ''
+            })
         }
 
         return {

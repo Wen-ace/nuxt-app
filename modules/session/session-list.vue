@@ -1,14 +1,18 @@
 <template>
-    <div>
-        <SessionItem ref="itemRef" v-for="item in sessionList" :key="item.id" :data="item" 
-        @delete="deleteCallback"
-        @click="(item) => clickHandler(item)"/>
+    <div class="h-screen flex flex-col">
+        <div class="flex-1">
+            <SessionItem ref="itemRef" v-for="item in sessionList" :key="item.id" :data="item" @delete="deleteCallback"
+                @click="(item) => clickHandler(item)" />
+        </div>
+        <div class="h-10">
+            <el-button @click="addSessionHandler">add</el-button>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, nextTick, ref, useStore, wrapProperty } from '@nuxtjs/composition-api';
-import { LIST_SESSION } from '~/api';
+import { CREATE_SESSION, LIST_SESSION } from '~/api';
 import { Session } from '~/type';
 import SessionItem from './session-item.vue';
 
@@ -20,7 +24,7 @@ export default defineComponent({
         // const sessionList = ref<Session[]>([])
         const $axios = wrapProperty('$axios', false)()
         const store = useStore<any>()
-        
+
         const itemRef = ref()
         const clickFirstItem = () => {
             itemRef.value[0].titleRef.click()
@@ -34,14 +38,14 @@ export default defineComponent({
                 store.commit('setSessionList', list)
 
                 nextTick(() => {
-                   clickFirstItem() 
+                    clickFirstItem()
                 })
-                
+
             })
         }
         getSessionList()
 
-        const clickHandler =(item: Session) => {
+        const clickHandler = (item: Session) => {
             console.log(item)
             store.commit('setCurrentSession', item)
         }
@@ -51,9 +55,19 @@ export default defineComponent({
         })
         const deleteCallback = () => {
             nextTick(() => {
-                clickFirstItem() 
+                clickFirstItem()
             })
-           
+
+        }
+
+        const addSessionHandler = () => {
+            return $axios.$get(CREATE_SESSION).then(() => {
+                // update session list
+                return getSessionList()
+            }).catch(error => {
+                console.log('error :>> ', error)
+            }
+            )
         }
 
         return {
@@ -61,7 +75,8 @@ export default defineComponent({
             clickHandler,
             itemRef,
 
-            deleteCallback
+            deleteCallback,
+            addSessionHandler,
         }
 
     }

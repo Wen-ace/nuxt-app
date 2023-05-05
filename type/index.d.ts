@@ -1,6 +1,7 @@
+type Iid = string | number
 
 export type Session = {
-    id: string | number,
+    id: Iid,
     title: string,
     create_time: number,
 }
@@ -8,10 +9,10 @@ export type Session = {
 export type IChat = {
     create_time: number
     direction: number
-    id: string
+    id: Iid
     message: string
     nickname: string
-    session_id: string
+    session_id: Iid
 }
 
 declare module '*.vue';

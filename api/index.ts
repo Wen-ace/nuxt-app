@@ -1,5 +1,7 @@
 
 
+export const SOCKET_URL = 'http://172.245.5.165:5110'
+
 
 export const LIST_SESSION = '/api/list_session'
 
