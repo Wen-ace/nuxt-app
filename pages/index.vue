@@ -1,10 +1,10 @@
 <template>
   <div class="flex h-screen">
-      <div class=" w-[280px] h-full">
+      <div class=" w-[280px] h-full p-5">
         <SessionList></SessionList>
       </div>
-      <div class="h-full flex-1">
-        <ChatContent ></ChatContent>
+      <div class="h-full flex-1 p-5">
+        <ChatContent></ChatContent>
       </div>
   </div>
 

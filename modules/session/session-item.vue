@@ -74,7 +74,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .active {
     border: 1px solid blue;
 }
