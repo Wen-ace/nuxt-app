@@ -1,9 +1,25 @@
+const axios = {
+
+  proxy: true,
+}
+
+
+const api_server = 'http://172.245.5.165:5110'
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+
+  proxy: {
+    '/api': api_server,
+    '/socket.io':  api_server,
+    '/socket*':  api_server,
+  },
+
+  axios,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -28,7 +44,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/index'
+    '@/plugins/element'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -45,9 +61,13 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    ['@nuxtjs/dotenv', {path: './'}],
+    '@nuxtjs/axios',
+
+    '@nuxtjs/style-resources'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
 }
