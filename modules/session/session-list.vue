@@ -1,11 +1,12 @@
 <template>
-    <div class="h-screen flex flex-col">
-        <div class="flex-1">
+    <div class="h-full flex flex-col">
+        <h3 class="h-10">ACE GPT</h3>
+        <div class="flex-1 overflow-auto">
             <SessionItem ref="itemRef" v-for="item in sessionList" :key="item.id" :data="item" @delete="deleteCallback"
                 @click="(item) => clickHandler(item)" />
         </div>
         <div class="h-10">
-            <el-button @click="addSessionHandler">add</el-button>
+            <el-button @click="addSessionHandler" type="text" icon="el-icon-plus" class="w-full">新建对话</el-button>
         </div>
     </div>
 </template>
@@ -40,7 +41,6 @@ export default defineComponent({
                 nextTick(() => {
                     clickFirstItem()
                 })
-
             })
         }
         getSessionList()

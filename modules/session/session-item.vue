@@ -3,7 +3,7 @@
         <div class="font-medium text-base" ref="titleRef" @click="clickHandler">
             {{ data.title }}
         </div>
-        <div> {{ data.create_time }}</div>
+        <div> {{ format(data.create_time) }}</div>
         <div class="hover:inline-flex hidden">
             <i class="el-icon-delete" @click="deleteHandler"></i>
         </div>
@@ -14,6 +14,7 @@
 import { PropType, computed, defineComponent, ref, useStore, wrapProperty } from '@nuxtjs/composition-api';
 import { Session } from '@/type';
 import { DELETE_SESSION } from '~/api';
+import {format} from '@/tool/format'
 
 export default defineComponent({
     name: 'session-item',
@@ -66,6 +67,8 @@ export default defineComponent({
             clickHandler,
             titleRef,
             deleteHandler,
+
+            format,
         }
     }
 })

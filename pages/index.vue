@@ -1,12 +1,9 @@
 <template>
   <div class="flex h-screen">
-      <div class=" w-[280px] h-full overflow-auto">
-        ACE GPT
-        <SessionList>
-
-        </SessionList>
+      <div class=" w-[280px] h-full">
+        <SessionList></SessionList>
       </div>
-      <div class="h-full">
+      <div class="h-full flex-1">
         <ChatContent ></ChatContent>
       </div>
   </div>
